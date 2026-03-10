@@ -1,11 +1,9 @@
-﻿
-using Application.Abstractions.Messaging;
+﻿using Application.Abstractions.Messaging;
 using Application.Products.GetProductById;
 using Application.Products.Shared;
 using EGC.Api.Extensions;
 using EGC.Api.Infrastructure;
 using EGC.Domain.Shared;
-using Web.Api.Endpoints;
 
 namespace EGC.Api.Endpoints.Products
 {
@@ -13,18 +11,18 @@ namespace EGC.Api.Endpoints.Products
     {
         public void MapEndpoint(IEndpointRouteBuilder app)
         {
-            app.MapGet("products/{id:guid}", async (
+            app.MapGet("/products/{id:guid}", async (
             Guid id,
             IQueryHandler<GetProductByIdQuery, ProductResponse> handler,
             CancellationToken cancellationToken) =>
             {
-                var command = new GetProductByIdQuery(id);
+                var query = new GetProductByIdQuery(id);
 
-                Result<ProductResponse> result = await handler.Handle(command, cancellationToken);
+                Result<ProductResponse> result = await handler.Handle(query, cancellationToken);
 
                 return result.Match(Results.Ok, CustomResults.Problem);
-            })
-        .WithTags(Tags.Products);
+
+            }).WithTags(Tags.Products);
         }
     }
 }

@@ -1,4 +1,4 @@
-﻿namespace Domain.Abstractions
+﻿namespace EGC.Domain.Abstractions
 {
     public abstract class EntityBase<TEntityId>
     {

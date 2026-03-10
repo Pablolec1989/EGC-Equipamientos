@@ -13,9 +13,29 @@ builder.Services
 
 builder.Services.AddEndpoints(Assembly.GetExecutingAssembly());
 
+//Configuracion de DateOnly
+
+
+//CORS Config
+var origenesPermitidos = builder.Configuration.GetValue<string>("OrigenesPermitidos")!.Split(",");
+
+builder.Services.AddCors(options =>
+{
+    options.AddDefaultPolicy(corsOptions =>
+    {
+        corsOptions.AllowAnyHeader()
+                    .AllowAnyMethod()
+                    .WithOrigins(origenesPermitidos)
+                    .WithExposedHeaders("cantidadTotalRegistros");
+    });
+});
+
 WebApplication app = builder.Build();
 
-app.MapEndpoints();
+RouteGroupBuilder apiGroup = app.MapGroup("/api/v1");
+app.MapEndpoints(apiGroup);
+
+app.UseCors();
 
 if (app.Environment.IsDevelopment())
 {
@@ -26,8 +46,8 @@ if (app.Environment.IsDevelopment())
 
 app.UseExceptionHandler();
 
-app.UseAuthentication();
+//app.UseAuthentication();
 
-app.UseAuthorization();
+//app.UseAuthorization();
 
 await app.RunAsync();

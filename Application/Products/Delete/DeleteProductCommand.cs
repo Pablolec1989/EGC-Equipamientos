@@ -2,8 +2,7 @@
 
 namespace Application.Products.Delete
 {
-    public sealed record DeleteProductCommand(Guid productId) : ICommand
+    public sealed record DeleteProductCommand(Guid ProductId) : ICommand
     {
-        public Guid Id { get; init; }
     }
 }

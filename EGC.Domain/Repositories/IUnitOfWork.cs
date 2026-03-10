@@ -1,4 +1,4 @@
-﻿namespace Domain.Repositories;
+﻿namespace EGC.Domain.Repositories;
 
 public interface IUnitOfWork
 {
