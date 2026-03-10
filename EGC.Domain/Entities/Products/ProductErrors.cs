@@ -13,6 +13,14 @@ namespace EGC.Domain.Entities.Products
             "Products.AlreadyCompleted",
             $"The product item with Id = '{productId}' is already completed.");
 
+        public static Error CodEGCAlreadyExists(string codEGC)
+        {
+            return Error.Conflict(
+                "Products.CodEGCAlreadyExists",
+                $"El producto con el código EGC = '{codEGC}' ya existe.");
+
+        }
+
         public static Error NotFound(Guid productId) => Error.NotFound(
             "Product.NotFound",
             $"The product item with the Id = '{productId}' was not found");

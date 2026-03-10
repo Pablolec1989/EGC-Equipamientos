@@ -1,6 +1,6 @@
-﻿using Domain.Abstractions;
+﻿using EGC.Domain.Abstractions;
 
-namespace Infrastructure.Repositories
+namespace EGC.Domain.Repositories
 {
     public interface IRepositoryBase<TEntity, TEntityId>
         where TEntity : EntityBase<TEntityId>

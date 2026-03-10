@@ -1,7 +1,6 @@
 ﻿using System.Reflection;
 using EGC.Api.Endpoints;
 using Microsoft.Extensions.DependencyInjection.Extensions;
-using Web.Api.Endpoints;
 
 namespace EGC.Api.Extensions;
 

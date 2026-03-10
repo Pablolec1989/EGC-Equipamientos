@@ -1,38 +1,38 @@
 ﻿using Application.Abstractions.Messaging;
-using Application.Products.Commands;
-using EGC.Api.Endpoints;
+using Application.Products.Create;
 using EGC.Api.Extensions;
 using EGC.Api.Infrastructure;
 using EGC.Domain.Shared;
-using Web.Api.Endpoints;
 
-namespace EGC.Api.Controllers.Products
+namespace EGC.Api.Endpoints.Products
 {
     public class Create : IEndpoint
     {
         public void MapEndpoint(IEndpointRouteBuilder app)
         {
-            app.MapPost("products", async (
-            ProductRequest request,
+            app.MapPost("/products", async (
+            CreateProductRequest request,
             ICommandHandler<CreateProductCommand, Guid> handler,
             CancellationToken cancellationToken) =>
             {
                 var command = new CreateProductCommand
                 {
-                    Nombre = request.Nombre,
-                    Precio = request.Precio,
+                    Name = request.Name,
+                    Description = request.Description,
+                    Price = request.Price,
+                    Stock = request.Stock,
                     CodEGC = request.CodEGC,
-                    CodFab = request.CodFab
+                    CodFab = request.CodFab,
+                    SerialCode = request.SerialCode
                 };
 
                 Result<Guid> result = await handler.Handle(command, cancellationToken);
 
-                return result.Match(Results.Ok, CustomResults.Problem);
+                return result.Match(
+                    id => Results.Created($"/api/v1/products/{id}", id),
+                    CustomResults.Problem);
             })
-        .WithTags(Tags.Products)
-            .WithOpenApi();
-            //.RequireAuthorization()
-            ;
+            .WithTags(Tags.Products);
         }
     }
 }

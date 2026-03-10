@@ -1,8 +1,8 @@
 ﻿
-using Domain.Repositories;
+using EGC.Domain.Repositories;
 using Infrastructure.Database;
 
-namespace EGC.Infrastructure;
+namespace Infrastructure;
 
 internal sealed class UnitOfWork : IUnitOfWork
 {

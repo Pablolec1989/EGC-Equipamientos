@@ -1,10 +1,11 @@
 ﻿using Application.Abstractions.Messaging;
+using Application.Products.GetProductById;
 using Application.Products.Shared;
 using EGC.Domain.Entities.Products;
 using EGC.Domain.Repositories;
 using EGC.Domain.Shared;
 
-namespace Application.Products.GetProductById
+namespace Application.Products.GetById
 {
     public class GetProductByIdQueryHandler : IQueryHandler<GetProductByIdQuery, ProductResponse>
     {
@@ -27,10 +28,13 @@ namespace Application.Products.GetProductById
             ProductResponse response = new ProductResponse
             {
                 Id = product.Id,
-                Nombre = product.Nombre,
-                Precio = product.Precio,
+                Name = product.Name,
+                Description = product.Description ?? string.Empty,
+                Price = product.Price ?? 0,
+                Stock = product.Stock,
                 CodEGC = product.CodEGC,
-                CodFab = product.CodFab
+                CodFab = product.CodFab,
+                SerialCode = product.SerialCode,
             };
 
             return response;
